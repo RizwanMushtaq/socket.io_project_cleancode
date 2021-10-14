@@ -1,1 +1,6 @@
-googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+<<<<<<< HEAD
+
+=======
+# Getting Started with Create React App
+
+>>>>>>> cae289dde6fb8273797cf949eb0797e6d8328244
