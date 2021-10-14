@@ -10,11 +10,10 @@ function App() {
   
   let [appState, setAppState] = useState("LoginPage")
   let [userName, setUserName] = useState("")
-  
 
   socket.on("connect", () => {
     console.log('User Connected ' + socket.id); // x8WIv7-mJelg7on_ALbx
-  });
+  })
 
   //Function to call when click on Login Button
   const userLoginRequestHandler = () => {
@@ -39,6 +38,7 @@ function App() {
       if(username === 'admin' && password === 'admin'){
         setUserName(username)
         setAppState('AppPage')
+        console.log('Login Successful')
       } else{
         alert("Incorrect username or password")
       }
