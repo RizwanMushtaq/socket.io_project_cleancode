@@ -1,0 +1,19 @@
+.container{
+    width: 100%;
+    text-align: left;
+}
+.buttonContainer{
+    
+    margin: 8px 0 0 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+.buttonContainer button{
+    width: 98px;
+    margin: 8px 0 0 0;
+    margin-left: 8px;
+}
