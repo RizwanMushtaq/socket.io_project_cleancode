@@ -1,36 +1,38 @@
 import React, {useState, useEffect} from 'react'
 import Style from "./AppPage.module.scss"
 
-
 import CompleteComponent from './command_components/CompleteComponent'
 import DateComponent from './command_components/DateComponent'
 import MapComponent from './command_components/MapComponent'
 import RateComponent from './command_components/RateComponent'
 
-export default function AppPage({ userName, socket}) {
+export default function AppPage({ userName, socket, setAppState}) {
 
-    // let [message, setMessage] = useState("")
-    // let [messagedataArray, setMessagedataArray] = useState([])
-    
+    //Hooks to keep track of visibilty of widgets
+    let [isWidgetVisible, setIsWidgetVisible] = useState(true)
+
     //variable to assign type of command received from server
     let [commandType, setCommandType] = useState(null)
     let [commandData, setCommandData] = useState(null) 
 
-    //Function to call when click on Send Message Button
-    // const sendMessageRequestHandler = async () => {
-    //     console.log("In sendMessageRequestHandler function")
+    //Hooks to store for user response
+    let [outputData, setOutputData] = useState(null)
+    let [serverData, setServerData] = useState(null)
 
-    //     if(message.trim() !== ""){
-    //         const data = {
-    //             author: userName,
-    //             message: message
-    //         }
-    //         console.log(data)
-    //         await socket.emit('message' , data)
-    //     } else {
-    //         alert("Mesaage Input is empty")
-    //     }
-    // }
+    const userResponseHandler = async (e) => {
+        console.log(e.target.innerHTML)
+        
+        setOutputData({
+            user: userName,
+            selection: e.target.innerHTML
+        })
+
+        const data = {
+            author: userName,
+            message: e.target.innerHTML
+        }
+        await socket.emit('message' , data)
+    }
 
     //Function to call when click on Send Command Button
     const sendCommandRequestHandler = async () => {
@@ -38,10 +40,15 @@ export default function AppPage({ userName, socket}) {
         await socket.emit('command')
     }
 
+    //Logic To render different widgets in Viewer
     let componentShown = null
     if(commandType === "date"){
         componentShown = <DateComponent
-                            commandData={commandData} 
+                            commandData={commandData}
+                            isWidgetVisible={isWidgetVisible}
+                            outputData={outputData}
+                            serverData={serverData}
+                            userResponseHandler={userResponseHandler}
                         />
     } else if(commandType === "map"){
         componentShown = <MapComponent
@@ -50,10 +57,19 @@ export default function AppPage({ userName, socket}) {
     } else if(commandType === "rate"){
         componentShown = <RateComponent 
                             commandData={commandData}
+                            isWidgetVisible={isWidgetVisible}
+                            outputData={outputData}
+                            serverData={serverData}
+                            userResponseHandler={userResponseHandler}
                         />
     } else if(commandType === "complete"){
         componentShown = <CompleteComponent
                             commandData={commandData}
+                            setAppState={setAppState}
+                            isWidgetVisible={isWidgetVisible}
+                            outputData={outputData}
+                            serverData={serverData}
+                            userResponseHandler={userResponseHandler}
                         />
     } else {
         componentShown = null
@@ -61,24 +77,22 @@ export default function AppPage({ userName, socket}) {
 
     //Use Effect Hook
     useEffect( () => {
-
         console.log("In use Effect of AppPage Component")
 
-        // socket.on("message", (data) => {
-        //     console.log(data)
-        //     setMessagedataArray([...messagedataArray, {
-        //         responseSender: data.author,
-        //         response: data.message
-        //     }])
-        // })
-
-        
         socket.on("command", (data) => {
             setCommandData(null)
             console.log("Command request response")
             console.log(data)
             setCommandType(data.command.type)
             setCommandData(data.command.data)
+            setIsWidgetVisible(true)
+        })
+
+        socket.on("message", (data) => {
+            console.log("message request response")
+            console.log(data)
+            setServerData(data)
+            setIsWidgetVisible(false)
         })
 
     }, [socket])
@@ -89,33 +103,7 @@ export default function AppPage({ userName, socket}) {
 
             <div className={Style.body} >
 
-                {/* <div className={Style.innercontainer}>
-
-                    <div className={Style.topLabel}> Message Events Section </div>
-                    <div className={Style.outputDiv}>{
-                        messagedataArray.map( (item) => (
-                            <div className={Style.outputDivInner}>
-                                <div className={Style.outputDivInnerA}>{item.responseSender + ": "}</div>
-                                <div className={Style.outputDivInnerB}>{item.response}</div>
-                            </div>
-                            
-                        ))}
-                    </div>
-                    
-                    <textarea 
-                        placeholder="Type your message here"
-                        rows="3"
-                        cols="25"
-                        onChange={ (event) => {
-                            setMessage(event.target.value)
-                        }}
-                    />
-                    <button onClick={sendMessageRequestHandler} >Send Message</button>
-                </div> */}
-
                 <div className={Style.innercontainer}>
-                    {/* <div className={Style.topLabel}> Command Events Section </div>
-                    <div className={Style.outputDiv}></div> */}
                     <button onClick={sendCommandRequestHandler}>Send Command</button>
                 </div>
 

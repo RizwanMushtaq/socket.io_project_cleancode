@@ -55,7 +55,7 @@ function App() {
   }else if(appState === 'AppPage'){
     return (
       <div className="App">
-        <AppPage userName={userName} socket={socket} />
+        <AppPage userName={userName} socket={socket} setAppState={setAppState} />
       </div>
     )
   }
