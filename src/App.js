@@ -8,8 +8,13 @@ const socket = io("https://demo-chat-server.on.ag/")
 
 function App() {
   
+  console.log('In App Component')
+
   let [appState, setAppState] = useState("LoginPage")
   let [userName, setUserName] = useState("")
+
+  //Hook to store widget we get from backend and watch to make sure we see all wigets only one time
+  // let [widgetArray, setWidgetArray] = useState([])
 
   socket.on("connect", () => {
     console.log('User Connected ' + socket.id); // x8WIv7-mJelg7on_ALbx
@@ -55,7 +60,11 @@ function App() {
   }else if(appState === 'AppPage'){
     return (
       <div className="App">
-        <AppPage userName={userName} socket={socket} setAppState={setAppState} />
+        <AppPage 
+          userName={userName} 
+          socket={socket} 
+          setAppState={setAppState}
+        />
       </div>
     )
   }

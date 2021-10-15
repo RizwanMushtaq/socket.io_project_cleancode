@@ -6,8 +6,14 @@ import DateComponent from './command_components/DateComponent'
 import MapComponent from './command_components/MapComponent'
 import RateComponent from './command_components/RateComponent'
 
-export default function AppPage({ userName, socket, setAppState}) {
+export default function AppPage(
+    { 
+        userName, 
+        socket, 
+        setAppState,
+    }) {
 
+    console.log('In AppPage Component')
     //Hooks to keep track of visibilty of widgets
     let [isWidgetVisible, setIsWidgetVisible] = useState(true)
 
@@ -100,19 +106,15 @@ export default function AppPage({ userName, socket, setAppState}) {
     return (
         <div className={Style.container}>
             <div className={Style.header} >Welcome {userName} </div>
-
             <div className={Style.body} >
-
                 <div className={Style.innercontainer}>
                     <button onClick={sendCommandRequestHandler}>Send Command</button>
                 </div>
-
                 <div className={Style.innercontainer}>
                     {
-                        commandType && componentShown
+                        commandData && componentShown
                     }
                 </div>
-
             </div>
         </div>
     )
