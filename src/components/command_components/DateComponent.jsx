@@ -4,6 +4,7 @@ import Style from './DateComponent.module.scss'
 
 function DateComponent(
     {
+        commandCompleteData,
         commandData,  
         isWidgetVisible, 
         outputData,
@@ -12,13 +13,14 @@ function DateComponent(
     }) {
 
     console.log("In DateComponent")
-    console.log(commandData)
+    console.log(commandCompleteData)
     
     let resultDate = null
     let weekData = null
     let weekDays = []
-    if(commandData){
-        resultDate = set(new Date(commandData), { commandData })
+    let date = commandCompleteData.command.data
+    if(commandCompleteData){
+        resultDate = set(new Date(date), { hours: 0 })
         console.log(resultDate)
         weekData = takeWeek(resultDate)()
         weekData.map((date) => 
@@ -30,13 +32,13 @@ function DateComponent(
     return (
         <div className={Style.container}>
             {
-                commandData && <div className={Style.container}>
+                commandCompleteData && <div className={Style.container}>
                     {
                         isWidgetVisible && <div>
                             <div>Select Day of your choice to join Ottonova</div>
                             <div className={Style.buttonContainer}>
                                 {
-                                    commandData && weekDays.map( (item) => (
+                                    commandCompleteData && weekDays.map( (item) => (
                                         <button key={item} onClick={userResponseHandler}>
                                             {item}
                                         </button>
@@ -48,7 +50,7 @@ function DateComponent(
 
                     {
                         !isWidgetVisible && <div>
-                            <div>User Selection</div>
+                            {/* <div>User Selection</div> */}
                             <div>
                                 {
                                     outputData && 
@@ -58,7 +60,7 @@ function DateComponent(
                                         </div>
                                 }
                             </div>
-                            <div>Server Response</div>
+                            {/* <div>Server Response</div> */}
                             <div>
                                 {
                                     serverData && 

@@ -2,9 +2,10 @@ import React, {useState} from 'react'
 import './App.css';
 import LoginPage from './components/LoginPage';
 import AppPage from './components/AppPage';
+import EndPage from './components/EndPage';
 
-import { io } from "socket.io-client"
-const socket = io("https://demo-chat-server.on.ag/")
+// import { io } from "socket.io-client"
+// const socket = io("https://demo-chat-server.on.ag/")
 
 function App() {
   
@@ -16,9 +17,7 @@ function App() {
   //Hook to store widget we get from backend and watch to make sure we see all wigets only one time
   // let [widgetArray, setWidgetArray] = useState([])
 
-  socket.on("connect", () => {
-    console.log('User Connected ' + socket.id); // x8WIv7-mJelg7on_ALbx
-  })
+  
 
   //Function to call when click on Login Button
   const userLoginRequestHandler = () => {
@@ -62,7 +61,16 @@ function App() {
       <div className="App">
         <AppPage 
           userName={userName} 
-          socket={socket} 
+          // socket={socket} 
+          setAppState={setAppState}
+        />
+      </div>
+    )
+  }
+  else if(appState === 'EndPage'){
+    return (
+      <div className="App">
+        <EndPage 
           setAppState={setAppState}
         />
       </div>

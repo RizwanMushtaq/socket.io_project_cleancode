@@ -5,8 +5,9 @@ import withScriptjs from 'react-google-maps/lib/withScriptjs'
 import Style from './MapComponent.module.scss'
 
 
-function MapComponent({commandData}) {
+function MapComponent({commandCompleteData}) {
 
+    let commandData = commandCompleteData.command.data
     console.log('In MapComponent')
     console.log(commandData)
     let WrappedMap = null

@@ -1,9 +1,11 @@
 import React from 'react'
 import Style from "./CompleteComponent.module.scss"
+import Command from "./command_socket"
 
 function CompleteComponent(
     {
-        commandData, 
+        commandCompleteData,
+        
         setAppState,
         isWidgetVisible, 
         outputData,
@@ -11,12 +13,14 @@ function CompleteComponent(
         userResponseHandler
     }) {
     
+    let  commandData = commandCompleteData.command.data
     console.log('In CompleteComponent')
     console.log(commandData)
 
     const userResponse = async (e) => {
         if(e.target.innerHTML === "Yes"){
             console.log('Yes Selected')
+            Command.widgetArray = []
             setAppState('LoginPage')
         } else{
             userResponseHandler(e)
@@ -45,7 +49,7 @@ function CompleteComponent(
                     }
                     {
                         !isWidgetVisible && <div>
-                            <div>User Selection</div>
+                            {/* <div>User Selection</div> */}
                             <div>
                                 {
                                     outputData && 
@@ -55,7 +59,7 @@ function CompleteComponent(
                                         </div>
                                 }
                             </div>
-                            <div>Server Response</div>
+                            {/* <div>Server Response</div> */}
                             <div>
                                 {
                                     serverData && 

@@ -3,13 +3,14 @@ import Style from "./RateComponent.module.scss"
 
 function RateComponent(
     {
-        commandData,
+        commandCompleteData,
         isWidgetVisible, 
         outputData,
         serverData,
         userResponseHandler
     }) {
-
+    
+    let commandData = commandCompleteData.command.data
     console.log('In RateComponent')
     console.log(commandData)
     let dataArray = []
@@ -41,7 +42,7 @@ function RateComponent(
                     }
                     {
                         !isWidgetVisible && <div>
-                            <div>User Selection</div>
+                            {/* <div>User Selection</div> */}
                             <div>
                                 {
                                     outputData && 
@@ -51,7 +52,7 @@ function RateComponent(
                                         </div>
                                 }
                             </div>
-                            <div>Server Response</div>
+                            {/* <div>Server Response</div> */}
                             <div>
                                 {
                                     serverData && 
