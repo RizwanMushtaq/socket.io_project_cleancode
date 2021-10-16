@@ -3,7 +3,7 @@ import Style from './EndPage.module.scss'
 
 function EndPage({userName ,setAppState}) {
 
-
+    //Function to call when user click on "Back to Login Page" button
     const backToLoginPageHandler = () => {
         setAppState('LoginPage')
     }

@@ -5,7 +5,6 @@ import Command from "./command_socket"
 function CompleteComponent(
     {
         commandCompleteData,
-        
         setAppState,
         isWidgetVisible, 
         outputData,
@@ -49,7 +48,6 @@ function CompleteComponent(
                     }
                     {
                         !isWidgetVisible && <div>
-                            {/* <div>User Selection</div> */}
                             <div>
                                 {
                                     outputData && 
@@ -59,7 +57,6 @@ function CompleteComponent(
                                         </div>
                                 }
                             </div>
-                            {/* <div>Server Response</div> */}
                             <div>
                                 {
                                     serverData && 

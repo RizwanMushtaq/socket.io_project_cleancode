@@ -10,6 +10,7 @@ function MapComponent({commandCompleteData}) {
     let commandData = commandCompleteData.command.data
     console.log('In MapComponent')
     console.log(commandData)
+    
     let WrappedMap = null
     if(commandData){
         function map() {

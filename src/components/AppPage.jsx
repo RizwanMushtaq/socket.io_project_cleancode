@@ -26,7 +26,8 @@ export default function AppPage(
     //Hooks to store for user response
     let [outputData, setOutputData] = useState(null)
     let [serverData, setServerData] = useState(null)
-
+    
+    //Function to call when user click on the buttons displayed on widget
     const userResponseHandler = async (e) => {
         console.log("In userResponseHandler function")
 

@@ -5,7 +5,6 @@ import Style from './DateComponent.module.scss'
 function DateComponent(
     {
         commandCompleteData,
-        commandData,  
         isWidgetVisible, 
         outputData,
         serverData,
@@ -50,7 +49,6 @@ function DateComponent(
 
                     {
                         !isWidgetVisible && <div>
-                            {/* <div>User Selection</div> */}
                             <div>
                                 {
                                     outputData && 
@@ -60,7 +58,6 @@ function DateComponent(
                                         </div>
                                 }
                             </div>
-                            {/* <div>Server Response</div> */}
                             <div>
                                 {
                                     serverData && 

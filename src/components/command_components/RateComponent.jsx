@@ -20,7 +20,6 @@ function RateComponent(
             dataArray.push(i)
         }
     }
-    
 
     return (
         <div className={Style.container}>
@@ -42,7 +41,6 @@ function RateComponent(
                     }
                     {
                         !isWidgetVisible && <div>
-                            {/* <div>User Selection</div> */}
                             <div>
                                 {
                                     outputData && 
@@ -52,7 +50,6 @@ function RateComponent(
                                         </div>
                                 }
                             </div>
-                            {/* <div>Server Response</div> */}
                             <div>
                                 {
                                     serverData && 
