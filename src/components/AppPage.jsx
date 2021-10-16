@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Style from "./AppPage.module.scss"
 
 import Command from "./command_components/command_socket"
@@ -11,7 +11,6 @@ import RateComponent from './command_components/RateComponent'
 export default function AppPage(
     { 
         userName, 
-        socket, 
         setAppState,
     }) {
 
@@ -128,12 +127,6 @@ export default function AppPage(
             componentShown = null
         }
     }
-
-    //Use Effect Hook
-    useEffect( () => {
-        console.log("In use Effect of AppPage Component")
-
-    }, [socket])
 
     return (
         <div className={Style.container}>

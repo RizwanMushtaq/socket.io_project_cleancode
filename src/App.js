@@ -53,7 +53,6 @@ function App() {
       <div className="App">
         <AppPage 
           userName={userName} 
-          // socket={socket} 
           setAppState={setAppState}
         />
       </div>
