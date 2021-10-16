@@ -1,9 +1,9 @@
 import { io } from "socket.io-client"
 const socket = io("https://demo-chat-server.on.ag/")
 
-// socket.on("connect", () => {
-//     console.log('User Connected ' + socket.id); // x8WIv7-mJelg7on_ALbx
-// })
+socket.on("connect", () => {
+    console.log('User Connected ' + socket.id); // x8WIv7-mJelg7on_ALbx
+})
 
 const Command = {}
 
