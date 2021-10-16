@@ -8,8 +8,6 @@ import DateComponent from './command_components/DateComponent'
 import MapComponent from './command_components/MapComponent'
 import RateComponent from './command_components/RateComponent'
 
-// let widgetArray = []
-
 export default function AppPage(
     { 
         userName, 
@@ -23,17 +21,7 @@ export default function AppPage(
 
     //variable to assign type of command received from server
     let [commandCompleteData, setCommandCompleteData] = useState(null)
-    let [commandType, setCommandType] = useState(null)
-    let [commandData, setCommandData] = useState(null)
-    // let [commandTypeArray, setCommandTypeArray] = useState([]) 
-    
-    // if(commandType){
-    //     let result = widgetArrayLogicFunction(commandType)
-    //     console.log('result is ' + result)
-    // }
-    
 
-    
 
     //Hooks to store for user response
     let [outputData, setOutputData] = useState(null)
@@ -109,7 +97,6 @@ export default function AppPage(
         if(commandCompleteData.command.type === "date"){
             componentShown = <DateComponent
                                 commandCompleteData={commandCompleteData}
-                                commandData={commandData}
                                 isWidgetVisible={isWidgetVisible}
                                 outputData={outputData}
                                 serverData={serverData}
@@ -118,12 +105,10 @@ export default function AppPage(
         } else if(commandCompleteData.command.type === "map"){
             componentShown = <MapComponent
                                 commandCompleteData={commandCompleteData}
-                                commandData={commandData} 
                             />
         } else if(commandCompleteData.command.type === "rate"){
             componentShown = <RateComponent
                                 commandCompleteData={commandCompleteData} 
-                                commandData={commandData}
                                 isWidgetVisible={isWidgetVisible}
                                 outputData={outputData}
                                 serverData={serverData}
@@ -132,7 +117,6 @@ export default function AppPage(
         } else if(commandCompleteData.command.type === "complete"){
             componentShown = <CompleteComponent
                                 commandCompleteData={commandCompleteData}
-                                commandData={commandData}
                                 setAppState={setAppState}
                                 isWidgetVisible={isWidgetVisible}
                                 outputData={outputData}
@@ -147,38 +131,6 @@ export default function AppPage(
     //Use Effect Hook
     useEffect( () => {
         console.log("In use Effect of AppPage Component")
-
-        // socket.on("command", (data) => {
-        //     setCommandData(null)
-        //     console.log("Command request response")
-            // console.log(data)
-        //     setCommandType(data.command.type)
-        //     setCommandData(data.command.data)
-        //     setIsWidgetVisible(true)
-            
-        //     // let result = serverResponseHandler(data)
-        //     // console.log('result is '+ result)
-        //     // if(result === 'false'){
-        //     //     console.log('Show widget now- In use effect hook')
-        //     //     setCommandType(data.command.type)
-        //     //     setCommandData(data.command.data)
-        //     //     setIsWidgetVisible(true)
-        //     // } else if(result === 'done'){
-        //     //     console.log('All widgets are shown- In use effect hook')
-        //     //     setAppState('EndPage')
-        //     // } else if(result === 'true'){
-        //     //     console.log('Send automatically another rquest to server')
-        //     //     sendCommandRequestHandler()
-        //     // }
-            
-        // })
-
-        // socket.on("message", (data) => {
-        //     console.log("message request response")
-        //     console.log(data)
-        //     setServerData(data)
-        //     setIsWidgetVisible(false)
-        // })
 
     }, [socket])
 
@@ -198,35 +150,3 @@ export default function AppPage(
         </div>
     )
 }
-
-
-//Function to handle response got from server and decide what to render on screen
-// let widgetArray = []
-// let widgetArrayLogicFunction = (data) => {
-//     console.log('In widgetArrayLogicFunction')
-//     console.log(data)
-//     console.log(widgetArray.length)
-//     console.log(widgetArray)
-
-//     // if(widgetArray.length < 4){
-
-//     //     for(let i = 0; i<widgetArray.length; i++){
-//     //         if(widgetArray[i] === data.command.type){
-//     //             console.log('item is equal to data')
-//     //             return 'true'
-//     //         } else {
-//     //             console.log('item is not equal to data')
-//     //         }
-//     //     }
-
-//     //     widgetArray.push(data.command.type)
-//     //     return 'false'
-
-//     // } else {
-//     //     console.log('All widgets are shown to user')
-//     //     widgetArray = []
-//     //     console.log(widgetArray)
-//     //     return 'done'
-//     // } 
-     
-// }

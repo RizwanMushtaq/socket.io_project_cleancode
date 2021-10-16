@@ -4,20 +4,12 @@ import LoginPage from './components/LoginPage';
 import AppPage from './components/AppPage';
 import EndPage from './components/EndPage';
 
-// import { io } from "socket.io-client"
-// const socket = io("https://demo-chat-server.on.ag/")
-
 function App() {
   
   console.log('In App Component')
 
   let [appState, setAppState] = useState("LoginPage")
   let [userName, setUserName] = useState("")
-
-  //Hook to store widget we get from backend and watch to make sure we see all wigets only one time
-  // let [widgetArray, setWidgetArray] = useState([])
-
-  
 
   //Function to call when click on Login Button
   const userLoginRequestHandler = () => {
@@ -71,6 +63,7 @@ function App() {
     return (
       <div className="App">
         <EndPage 
+          userName={userName} 
           setAppState={setAppState}
         />
       </div>

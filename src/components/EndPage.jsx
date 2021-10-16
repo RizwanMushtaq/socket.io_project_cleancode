@@ -1,6 +1,7 @@
 import React from 'react'
+import Style from './EndPage.module.scss'
 
-function EndPage({setAppState}) {
+function EndPage({userName ,setAppState}) {
 
 
     const backToLoginPageHandler = () => {
@@ -8,15 +9,13 @@ function EndPage({setAppState}) {
     }
 
     return (
-        <div>
-            <div>
-                All Widgets are Shown
-            </div>
-            <div>
-                Click on button below to Login Page
-            </div>
-            <div>
-                <button onClick={backToLoginPageHandler}>Back to Login Page</button>
+        <div className={Style.container}>
+            <div className={Style.header} >Hi {userName}</div>
+            <div className={Style.header} >All Widgets are Shown</div>
+            <div className={Style.body} >
+                <div className={Style.innercontainer}>
+                    <button onClick={backToLoginPageHandler}>Back to Login Page</button>
+                </div>
             </div>
         </div>
     )
