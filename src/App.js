@@ -7,8 +7,9 @@ import EndPage from './components/EndPage';
 function App() {
   
   console.log('In App Component')
-
+  //Hook to store app state which is shown in viewer
   let [appState, setAppState] = useState("LoginPage")
+  //Hook to store user name of user
   let [userName, setUserName] = useState("")
 
   //Function to call when click on Login Button
