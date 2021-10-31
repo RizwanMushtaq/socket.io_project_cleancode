@@ -84,7 +84,7 @@ function takeWeek(start) {
 
     return function() {
         const week = [...Array(7)].map( (_, i) => addDays(date, i))
-        date = addDays(week[6], 1)
+        // date = addDays(week[6], 1)
         return week
     }
 }
