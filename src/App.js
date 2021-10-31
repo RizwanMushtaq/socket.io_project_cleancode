@@ -1,18 +1,18 @@
 import React, {useState} from 'react'
-import './App.css';
-import LoginPage from './components/LoginPage';
-import AppPage from './components/AppPage';
-import EndPage from './components/EndPage';
+import './App.css'
+import { consoleLogWhenVariableIsSet } from './utils/logHandling'
+import LoginPage from './components/LoginPage'
+import AppPage from './components/AppPage'
+import EndPage from './components/EndPage'
 
 export default function App() {
-  
-  console.log('In App Component')
+  consoleLogWhenVariableIsSet('In App Component')
   
   let [appState, setAppState] = useState("LoginPage")
   let [userName, setUserName] = useState("")
 
-  const userLoginRequestHandler = () => {
-    console.log('In userLoginRequestHandler function')
+  const handleLoginRequest = () => {
+    consoleLogWhenVariableIsSet('In handleLoginRequest function')
 
     let username = document.querySelector("#LoginFormUserInput").value
     let password = document.querySelector("#LoginFormPasswordInput").value
@@ -40,11 +40,10 @@ export default function App() {
     }
   }
 
-  //Return block is decided on the basis of appState Hook
   if(appState === 'LoginPage'){
     return (
       <div className="App">
-        <LoginPage userLoginRequestHandler={userLoginRequestHandler}/>
+        <LoginPage handleLoginRequest={handleLoginRequest}/>
       </div>
     )
   }else if(appState === 'AppPage'){

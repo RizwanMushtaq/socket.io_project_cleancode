@@ -4,7 +4,7 @@ import Style from "./LoginPage.module.scss"
 import UserLogo from '../images/Benutzer.svg'
 import PasswordLogo from '../images/Passwortschloss.svg'
 
-export default function LoginForm({forgotPasswordRequestHandler, userLoginRequestHandler}) {
+export default function LoginForm({forgotPasswordRequestHandler, handleLoginRequest}) {
     return (
         <div className={Style.container}>
             <div className={Style.formContainer}>
@@ -29,7 +29,7 @@ export default function LoginForm({forgotPasswordRequestHandler, userLoginReques
                 </div>
                 
                 <div className={Style.buttonContainer}>
-                    <button onClick={userLoginRequestHandler}>Login</button>
+                    <button onClick={handleLoginRequest}>Login</button>
                 </div>
             </div>
         </div>
