@@ -4,15 +4,13 @@ import LoginPage from './components/LoginPage';
 import AppPage from './components/AppPage';
 import EndPage from './components/EndPage';
 
-function App() {
+export default function App() {
   
   console.log('In App Component')
-  //Hook to store app state which is shown in viewer
+  
   let [appState, setAppState] = useState("LoginPage")
-  //Hook to store user name of user
   let [userName, setUserName] = useState("")
 
-  //Function to call when click on Login Button
   const userLoginRequestHandler = () => {
     console.log('In userLoginRequestHandler function')
 
@@ -71,4 +69,3 @@ function App() {
   }
 }
 
-export default App;
