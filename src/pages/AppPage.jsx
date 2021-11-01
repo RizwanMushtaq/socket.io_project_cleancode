@@ -9,7 +9,7 @@ import MapComponent from '../components/command_components/MapComponent'
 import RateComponent from '../components/command_components/RateComponent'
 
 export default function AppPage(
-    { 
+    {   
         userName, 
         setAppState,
     }) {

@@ -1,3 +1,3 @@
-export function LogWithDebug(message){
+export function logWithDebug(message){
     if(localStorage.getItem('Ottonova.debug')) console.log(message)
 }

@@ -1,43 +1,41 @@
 import React, {useState} from 'react'
 import './App.css'
-import { LogWithDebug } from './utils/logHandling'
+import { logWithDebug } from './utils/logHandling'
+import { logError } from './utils/errorHandling'
+import { isUserValid } from './auth/userAuth'
+import { isInputEmpty } from './utils/inputHandling'
+
 import LoginPage from './pages/LoginPage'
 import AppPage from './pages/AppPage'
 import EndPage from './pages/EndPage'
 
 export default function App() {
-  LogWithDebug('In App Component')
+  logWithDebug('In App Component')
   
   let [appState, setAppState] = useState("LoginPage")
   let [userName, setUserName] = useState("")
 
   const handleLoginRequest = () => {
-    LogWithDebug('In handleLoginRequest function')
+    logWithDebug('In handleLoginRequest function')
 
-    let username = document.querySelector("#LoginFormUserInput").value
-    let password = document.querySelector("#LoginFormPasswordInput").value
-
-    if(username.trim() === ""){
-      document.querySelector("#LoginFormUserInput").parentElement.style.border = '2px solid red'
-    }
-    if(password.trim() === ""){
-      document.querySelector("#LoginFormPasswordInput").parentElement.style.border = '2px solid red'
-    }
-    if(username.trim() !== ""){
-      document.querySelector("#LoginFormUserInput").parentElement.style.border = '1px solid black'
-    }
-    if(password.trim() !== ""){
-      document.querySelector("#LoginFormPasswordInput").parentElement.style.border = '1px solid black'
-    }
-    if(username.trim() !== "" && password.trim() !== ""){
-      if(username === 'admin' && password === 'admin'){
-        setUserName(username)
-        setAppState('AppPage')
-        console.log('Login Successful')
-      } else{
-        alert("Incorrect username or password")
+    try {
+      isInputEmpty()
+      try {
+        isUserValid()
+        showAppPage()
+      } catch (error) {
+        logError(error)
       }
+    } catch (error) {
+      logError(error)
     }
+
+  }
+
+  const showAppPage = () => {
+    const username = document.querySelector("#LoginFormUserInput").value
+    setUserName(username)
+    setAppState('AppPage')
   }
 
   if(appState === 'LoginPage'){
@@ -55,8 +53,7 @@ export default function App() {
         />
       </div>
     )
-  }
-  else if(appState === 'EndPage'){
+  }else if(appState === 'EndPage'){
     return (
       <div className="App">
         <EndPage 
