@@ -1,14 +1,15 @@
 import { io } from "socket.io-client"
+import { logWithDebug } from './../utils/logHandling'
 const socket = io("https://demo-chat-server.on.ag/")
 
 socket.on("connect", () => {
-    console.log('User Connected ' + socket.id); // x8WIv7-mJelg7on_ALbx
+    logWithDebug('User Connected ' + socket.id); // x8WIv7-mJelg7on_ALbx
 })
 
-const Command = {}
+const UserActions = {}
 
-Command.getResponse = async () => {
-    console.log('In getResponse function')
+UserActions.getCommandResponse = async () => {
+    logWithDebug('In getResponse function')
     socket.emit('command')
     
     return new Promise( (resolve, reject) => {
@@ -18,8 +19,8 @@ Command.getResponse = async () => {
     })
 }
 
-Command.getMessageResponse = async (data) => {
-    console.log('In getMessageResponse function')
+UserActions.getMessageResponse = async (data) => {
+    logWithDebug('In getMessageResponse function')
     socket.emit('message', data)
     
     return new Promise( (resolve, reject) => {
@@ -29,7 +30,6 @@ Command.getMessageResponse = async (data) => {
     })
 }
 
-Command.widgetArray = []
+UserActions.widgetArray = []
 
-
-export default Command
+export default UserActions

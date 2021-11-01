@@ -5,9 +5,9 @@ import withScriptjs from 'react-google-maps/lib/withScriptjs'
 import Style from './MapComponent.module.scss'
 
 
-function MapComponent({commandCompleteData}) {
+function MapComponent({commandDataFromServer}) {
 
-    let commandData = commandCompleteData.command.data
+    let commandData = commandDataFromServer.command.data
     console.log('In MapComponent')
     console.log(commandData)
     

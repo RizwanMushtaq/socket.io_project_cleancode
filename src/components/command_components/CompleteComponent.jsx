@@ -1,25 +1,25 @@
 import React from 'react'
 import Style from "./CompleteComponent.module.scss"
-import Command from "./command_socket"
+import UserActions from "./../../socket.io/socket"
 
 function CompleteComponent(
     {
-        commandCompleteData,
+        commandDataFromServer,
         setAppState,
         isWidgetVisible, 
-        outputData,
-        serverData, 
+        userResponseData,
+        messageDataFromServer, 
         userResponseHandler
     }) {
     
-    let  commandData = commandCompleteData.command.data
+    let  commandData = commandDataFromServer.command.data
     console.log('In CompleteComponent')
     console.log(commandData)
 
     const userResponse = async (e) => {
         if(e.target.innerHTML === "Yes"){
             console.log('Yes Selected')
-            Command.widgetArray = []
+            UserActions.widgetArray = []
             setAppState('LoginPage')
         } else{
             userResponseHandler(e)
@@ -50,19 +50,19 @@ function CompleteComponent(
                         !isWidgetVisible && <div>
                             <div>
                                 {
-                                    outputData && 
+                                    userResponseData && 
                                         <div className={Style.outputDiv}>
-                                            <div>{outputData.user}&nbsp;:</div>
-                                            <div>&nbsp;{outputData.selection}</div>
+                                            <div>{userResponseData.user}&nbsp;:</div>
+                                            <div>&nbsp;{userResponseData.selection}</div>
                                         </div>
                                 }
                             </div>
                             <div>
                                 {
-                                    serverData && 
+                                    messageDataFromServer && 
                                         <div className={Style.outputDiv}>
-                                            <div>{serverData.author}&nbsp;:</div>
-                                            <div>&nbsp;{serverData.message}</div>
+                                            <div>{messageDataFromServer.author}&nbsp;:</div>
+                                            <div>&nbsp;{messageDataFromServer.message}</div>
                                         </div>
                                 }
                             </div>

@@ -3,14 +3,14 @@ import Style from "./RateComponent.module.scss"
 
 function RateComponent(
     {
-        commandCompleteData,
+        commandDataFromServer,
         isWidgetVisible, 
-        outputData,
-        serverData,
+        userResponseData,
+        messageDataFromServer,
         userResponseHandler
     }) {
     
-    let commandData = commandCompleteData.command.data
+    let commandData = commandDataFromServer.command.data
     console.log('In RateComponent')
     console.log(commandData)
     let dataArray = []
@@ -43,19 +43,19 @@ function RateComponent(
                         !isWidgetVisible && <div>
                             <div>
                                 {
-                                    outputData && 
+                                    userResponseData && 
                                         <div className={Style.outputDiv}>
-                                            <div>{outputData.user}&nbsp;:</div>
-                                            <div>&nbsp;{outputData.selection}</div>
+                                            <div>{userResponseData.user}&nbsp;:</div>
+                                            <div>&nbsp;{userResponseData.selection}</div>
                                         </div>
                                 }
                             </div>
                             <div>
                                 {
-                                    serverData && 
+                                    messageDataFromServer && 
                                         <div className={Style.outputDiv}>
-                                            <div>{serverData.author}&nbsp;:</div>
-                                            <div>&nbsp;{serverData.message}</div>
+                                            <div>{messageDataFromServer.author}&nbsp;:</div>
+                                            <div>&nbsp;{messageDataFromServer.message}</div>
                                         </div>
                                 }
                             </div>

@@ -4,21 +4,21 @@ import Style from './DateComponent.module.scss'
 
 function DateComponent(
     {
-        commandCompleteData,
+        commandDataFromServer,
         isWidgetVisible, 
-        outputData,
-        serverData,
+        userResponseData,
+        messageDataFromServer,
         userResponseHandler
     }) {
 
     console.log("In DateComponent")
-    console.log(commandCompleteData)
+    console.log(commandDataFromServer)
     
     let resultDate = null
     let weekData = null
     let weekDays = []
-    let date = commandCompleteData.command.data
-    if(commandCompleteData){
+    let date = commandDataFromServer.command.data
+    if(commandDataFromServer){
         resultDate = set(new Date(date), { hours: 0 })
         console.log(resultDate)
         weekData = takeWeek(resultDate)()
@@ -31,13 +31,13 @@ function DateComponent(
     return (
         <div className={Style.container}>
             {
-                commandCompleteData && <div className={Style.container}>
+                commandDataFromServer && <div className={Style.container}>
                     {
                         isWidgetVisible && <div>
                             <div>Select Day of your choice to join Ottonova</div>
                             <div className={Style.buttonContainer}>
                                 {
-                                    commandCompleteData && weekDays.map( (item) => (
+                                    commandDataFromServer && weekDays.map( (item) => (
                                         <button key={item} onClick={userResponseHandler}>
                                             {item}
                                         </button>
@@ -51,19 +51,19 @@ function DateComponent(
                         !isWidgetVisible && <div>
                             <div>
                                 {
-                                    outputData && 
+                                    userResponseData && 
                                         <div className={Style.outputDiv}>
-                                            <div>{outputData.user}&nbsp;:</div>
-                                            <div>&nbsp;{outputData.selection}</div>
+                                            <div>{userResponseData.user}&nbsp;:</div>
+                                            <div>&nbsp;{userResponseData.selection}</div>
                                         </div>
                                 }
                             </div>
                             <div>
                                 {
-                                    serverData && 
+                                    messageDataFromServer && 
                                         <div className={Style.outputDiv}>
-                                            <div>{serverData.author}&nbsp;:</div>
-                                            <div>&nbsp;{serverData.message}</div>
+                                            <div>{messageDataFromServer.author}&nbsp;:</div>
+                                            <div>&nbsp;{messageDataFromServer.message}</div>
                                         </div>
                                 }
                             </div>

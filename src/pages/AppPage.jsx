@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import Style from "./AppPage.module.scss"
-
-import Command from "../components/command_components/command_socket"
+import { logWithDebug } from '../utils/logHandling'
+import UserActions from "./../socket.io/socket"
+import {doesAllWidgetsShown, isCommandExecuted} from './appPage'
 
 import CompleteComponent from '../components/command_components/CompleteComponent'
 import DateComponent from '../components/command_components/DateComponent'
@@ -13,24 +14,46 @@ export default function AppPage(
         userName, 
         setAppState,
     }) {
-
-    console.log('In AppPage Component')
-    //Hooks to keep track of visibilty of widgets
-    let [isWidgetVisible, setIsWidgetVisible] = useState(true)
-
-    //variable to assign type of command received from server
-    let [commandCompleteData, setCommandCompleteData] = useState(null)
-
-
-    //Hooks to store for user response
-    let [outputData, setOutputData] = useState(null)
-    let [serverData, setServerData] = useState(null)
+    logWithDebug('In AppPage Component')
     
+    //Hook to store data from user response
+    let [userResponseData, setUserResponseData] = useState(null)
+    //Hook to store if Widget(component) should be shown or not
+    let [isWidgetVisible, setIsWidgetVisible] = useState(true)
+    //Hook to store command data received from server
+    let [commandDataFromServer, setCommandDataFromServer] = useState(null)
+    //Hook to store message data from Server
+    let [messageDataFromServer, setMessageDataFromServer] = useState(null)
+    
+    //Function to call when User click on "Send Command" Button
+    const handleCommandRequest = async () => {
+        logWithDebug("In handleCommandRequest function")
+
+        if(doesAllWidgetsShown()){
+            setAppState('EndPage')
+            return
+        }
+
+        let result = await UserActions.getCommandResponse()
+        logWithDebug('Result in AppPage.js')
+        logWithDebug(result)
+        logWithDebug(UserActions.widgetArray)
+
+        if(!isCommandExecuted(result)){
+            UserActions.widgetArray.push(result.command.type)
+            logWithDebug('item pushed in Array')
+            setCommandDataFromServer(result)
+            setIsWidgetVisible(true)
+            return
+        }
+        handleCommandRequest()   
+    }
+
     //Function to call when user click on the buttons displayed on widget
     const userResponseHandler = async (e) => {
-        console.log("In userResponseHandler function")
+        logWithDebug("In userResponseHandler function")
 
-        setOutputData({
+        setUserResponseData({
             user: userName,
             selection: e.target.innerHTML
         })
@@ -39,88 +62,45 @@ export default function AppPage(
             author: userName,
             message: e.target.innerHTML
         }
-        let result = await Command.getMessageResponse(data)
-        console.log(result)
-        setServerData(result)
+
+        let result = await UserActions.getMessageResponse(data)
+        logWithDebug(result)
+
+        setMessageDataFromServer(result)
         setIsWidgetVisible(false)
         return
     }
 
-    //Function to call when click on Send Command Button
-    const sendCommandRequestHandler = async () => {
-        console.log("In sendCommandRequestHandler function")
-        // await socket.emit('command')
-        let result = await Command.getResponse()
-        console.log('Result in AppPage.js')
-        console.log(result)
-        console.log(Command.widgetArray)
-
-        if(Command.widgetArray.length < 4){
-
-            let breakLoop = false
-
-            for(let i = 0; i<Command.widgetArray.length; i++){
-                if(Command.widgetArray[i] === result.command.type){
-                    console.log('item is equal to data')
-                    breakLoop = true
-                    break
-                } else {
-                    console.log('item is not equal to data')
-                }
-            }
-
-            if(breakLoop){
-                sendCommandRequestHandler()
-                return
-            } else {
-                Command.widgetArray.push(result.command.type)
-                console.log('item pushed in Array')
-                setCommandCompleteData(result)
-                setIsWidgetVisible(true)
-                return
-            }
-            
-
-        } else {
-            console.log('All widgets are shown to user')
-            Command.widgetArray = []
-            setAppState('EndPage')
-            console.log(Command.widgetArray)
-            return
-        } 
-
-    }
-
     //Logic To render different widgets in Viewer
     let componentShown = null
-    if(commandCompleteData){
-        if(commandCompleteData.command.type === "date"){
+    if(commandDataFromServer){
+        if(commandDataFromServer.command.type === "date"){
             componentShown = <DateComponent
-                                commandCompleteData={commandCompleteData}
+                                commandDataFromServer={commandDataFromServer}
                                 isWidgetVisible={isWidgetVisible}
-                                outputData={outputData}
-                                serverData={serverData}
+                                userResponseData={userResponseData}
+                                messageDataFromServer={messageDataFromServer}
                                 userResponseHandler={userResponseHandler}
                             />
-        } else if(commandCompleteData.command.type === "map"){
+        } else if(commandDataFromServer.command.type === "map"){
             componentShown = <MapComponent
-                                commandCompleteData={commandCompleteData}
+                                commandDataFromServer={commandDataFromServer}
                             />
-        } else if(commandCompleteData.command.type === "rate"){
+        } else if(commandDataFromServer.command.type === "rate"){
             componentShown = <RateComponent
-                                commandCompleteData={commandCompleteData} 
+                                commandDataFromServer={commandDataFromServer} 
                                 isWidgetVisible={isWidgetVisible}
-                                outputData={outputData}
-                                serverData={serverData}
+                                userResponseData={userResponseData}
+                                messageDataFromServer={messageDataFromServer}
                                 userResponseHandler={userResponseHandler}
                             />
-        } else if(commandCompleteData.command.type === "complete"){
+        } else if(commandDataFromServer.command.type === "complete"){
             componentShown = <CompleteComponent
-                                commandCompleteData={commandCompleteData}
+                                commandDataFromServer={commandDataFromServer}
                                 setAppState={setAppState}
                                 isWidgetVisible={isWidgetVisible}
-                                outputData={outputData}
-                                serverData={serverData}
+                                userResponseData={userResponseData}
+                                messageDataFromServer={messageDataFromServer}
                                 userResponseHandler={userResponseHandler}
                             />
         } else {
@@ -133,11 +113,11 @@ export default function AppPage(
             <div className={Style.header} >Welcome {userName} </div>
             <div className={Style.body} >
                 <div className={Style.innercontainer}>
-                    <button onClick={sendCommandRequestHandler}>Send Command</button>
+                    <button onClick={handleCommandRequest}>Send Command</button>
                 </div>
                 <div className={Style.innercontainer}>
                     {
-                        commandCompleteData && componentShown
+                        commandDataFromServer && componentShown
                     }
                 </div>
             </div>
