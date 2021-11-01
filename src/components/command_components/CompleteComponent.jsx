@@ -1,6 +1,7 @@
 import React from 'react'
 import Style from "./CompleteComponent.module.scss"
 import UserActions from "./../../socket.io/socket"
+import { logWithDebug } from './../../utils/logHandling'
 
 function CompleteComponent(
     {
@@ -13,12 +14,12 @@ function CompleteComponent(
     }) {
     
     let  commandData = commandDataFromServer.command.data
-    console.log('In CompleteComponent')
-    console.log(commandData)
+    logWithDebug('In CompleteComponent')
+    logWithDebug(commandData)
 
     const userResponse = async (e) => {
         if(e.target.innerHTML === "Yes"){
-            console.log('Yes Selected')
+            logWithDebug('Yes Selected')
             UserActions.widgetArray = []
             setAppState('LoginPage')
         } else{

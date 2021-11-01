@@ -2,14 +2,15 @@ import React from 'react'
 import { GoogleMap, Marker } from 'react-google-maps'
 import withGoogleMap from 'react-google-maps/lib/withGoogleMap'
 import withScriptjs from 'react-google-maps/lib/withScriptjs'
+import { logWithDebug } from './../../utils/logHandling'
 import Style from './MapComponent.module.scss'
 
 
 function MapComponent({commandDataFromServer}) {
 
     let commandData = commandDataFromServer.command.data
-    console.log('In MapComponent')
-    console.log(commandData)
+    logWithDebug('In MapComponent')
+    logWithDebug(commandData)
     
     let WrappedMap = null
     if(commandData){

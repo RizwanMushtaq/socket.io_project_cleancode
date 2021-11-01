@@ -1,6 +1,7 @@
 import React from 'react'
 import { set ,addDays, format } from 'date-fns'
 import Style from './DateComponent.module.scss'
+import { logWithDebug } from './../../utils/logHandling'
 
 function DateComponent(
     {
@@ -11,8 +12,8 @@ function DateComponent(
         userResponseHandler
     }) {
 
-    console.log("In DateComponent")
-    console.log(commandDataFromServer)
+    logWithDebug("In DateComponent")
+    logWithDebug(commandDataFromServer)
     
     let resultDate = null
     let weekData = null
@@ -20,7 +21,7 @@ function DateComponent(
     let date = commandDataFromServer.command.data
     if(commandDataFromServer){
         resultDate = set(new Date(date), { hours: 0 })
-        console.log(resultDate)
+        logWithDebug(resultDate)
         weekData = takeWeek(resultDate)()
         weekData.map((date) => 
             weekDays.push(format(date, 'EEEE'))

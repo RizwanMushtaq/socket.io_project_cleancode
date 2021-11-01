@@ -1,18 +1,19 @@
 import React from 'react'
 import Style from "./RateComponent.module.scss"
+import { logWithDebug } from './../../utils/logHandling'
 
 function RateComponent(
     {
-        commandDataFromServer,
         isWidgetVisible, 
         userResponseData,
+        commandDataFromServer,
         messageDataFromServer,
         userResponseHandler
     }) {
     
     let commandData = commandDataFromServer.command.data
-    console.log('In RateComponent')
-    console.log(commandData)
+    logWithDebug('In RateComponent')
+    logWithDebug(commandData)
     let dataArray = []
 
     if(commandData){
