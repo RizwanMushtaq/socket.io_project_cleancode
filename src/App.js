@@ -24,9 +24,11 @@ export default function App() {
         showAppPage()
       } catch (error) {
         logError(error)
+        alert(error)
       }
     } catch (error) {
       logError(error)
+      alert(error)
     }
 
   }
