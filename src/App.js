@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import './App.css'
 import { logWithDebug } from './utils/logHandling'
 import { logError } from './utils/errorHandling'
 import { isUserValid } from './auth/userAuth'

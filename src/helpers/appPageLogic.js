@@ -1,4 +1,4 @@
-import UserActions from "./../socket.io/socket"
+import UserActions from "../socket.io/socket"
 import { logWithDebug } from '../utils/logHandling'
 
 export const doesAllWidgetsShown = () => {

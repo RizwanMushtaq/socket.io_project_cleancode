@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Style from "./AppPage.module.scss"
 import { logWithDebug } from '../utils/logHandling'
 import UserActions from "./../socket.io/socket"
-import {doesAllWidgetsShown, isCommandExecuted} from './appPage'
+import {doesAllWidgetsShown, isCommandExecuted} from '../helpers/appPageLogic'
 
 import CompleteComponent from '../components/command_components/CompleteComponent'
 import DateComponent from '../components/command_components/DateComponent'
