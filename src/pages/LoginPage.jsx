@@ -1,8 +1,8 @@
 import React from 'react'
 import Style from "./LoginPage.module.scss"
 
-import UserLogo from '../images/Benutzer.svg'
-import PasswordLogo from '../images/Passwortschloss.svg'
+import UserLogo from './../assets/images/Benutzer.svg'
+import PasswordLogo from './../assets/images/Passwortschloss.svg'
 
 export default function LoginForm({forgotPasswordRequestHandler, handleLoginRequest}) {
     return (

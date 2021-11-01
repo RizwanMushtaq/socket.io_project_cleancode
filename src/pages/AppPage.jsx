@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import Style from "./AppPage.module.scss"
 
-import Command from "./command_components/command_socket"
+import Command from "../components/command_components/command_socket"
 
-import CompleteComponent from './command_components/CompleteComponent'
-import DateComponent from './command_components/DateComponent'
-import MapComponent from './command_components/MapComponent'
-import RateComponent from './command_components/RateComponent'
+import CompleteComponent from '../components/command_components/CompleteComponent'
+import DateComponent from '../components/command_components/DateComponent'
+import MapComponent from '../components/command_components/MapComponent'
+import RateComponent from '../components/command_components/RateComponent'
 
 export default function AppPage(
     { 

@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import './App.css'
 import { consoleLogWhenVariableIsSet } from './utils/logHandling'
-import LoginPage from './components/LoginPage'
-import AppPage from './components/AppPage'
-import EndPage from './components/EndPage'
+import LoginPage from './pages/LoginPage'
+import AppPage from './pages/AppPage'
+import EndPage from './pages/EndPage'
 
 export default function App() {
   consoleLogWhenVariableIsSet('In App Component')
