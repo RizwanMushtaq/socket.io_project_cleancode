@@ -1,18 +1,18 @@
 import React, {useState} from 'react'
 import './App.css'
-import { consoleLogWhenVariableIsSet } from './utils/logHandling'
+import { LogWithDebug } from './utils/logHandling'
 import LoginPage from './pages/LoginPage'
 import AppPage from './pages/AppPage'
 import EndPage from './pages/EndPage'
 
 export default function App() {
-  consoleLogWhenVariableIsSet('In App Component')
+  LogWithDebug('In App Component')
   
   let [appState, setAppState] = useState("LoginPage")
   let [userName, setUserName] = useState("")
 
   const handleLoginRequest = () => {
-    consoleLogWhenVariableIsSet('In handleLoginRequest function')
+    LogWithDebug('In handleLoginRequest function')
 
     let username = document.querySelector("#LoginFormUserInput").value
     let password = document.querySelector("#LoginFormPasswordInput").value

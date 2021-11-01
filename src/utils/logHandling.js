@@ -1,3 +1,3 @@
-export function consoleLogWhenVariableIsSet(message){
-    if(localStorage.getItem('showConsoleLogs')) console.log(message)
+export function LogWithDebug(message){
+    if(localStorage.getItem('Ottonova.debug')) console.log(message)
 }
